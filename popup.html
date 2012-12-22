@@ -18,6 +18,14 @@
         margin: 45px 10px 30px 10px;
         vertical-align: middle;
       }
+      table {
+        text-align: center;
+        margin-left: 50px;
+      }
+      th {
+        font-weight: bold;
+        padding: 0px 20px;
+      }
     </style>
   </head>
   <body>
@@ -28,6 +36,17 @@
     <div id="spinner" style="display:none">
       <img src="spinner.gif" /> Loading lunar phase...
     </div>
+
+    <table id="dataHolder" style="display:none">
+      <tr>
+        <th>Percent illuminated</th>
+        <th>Age</th>
+      <tr> 
+        <td id="percentIlluminated"></td>
+        <td id="ageOfMoon"></td>
+      </tr>
+    </table>
+
      <script src="popup.js"></script>
   </body>
 </html>
