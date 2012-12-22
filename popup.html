@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Current Lunar Phase</title>
+    <style>
+      body {
+        min-width: 400px;
+        overflow-x: hidden; 
+        background-color: black;   
+        font-family: "Arial";
+        font-size: 14px;
+        color: white;
+      }
+      img {
+        margin: 10px;
+        vertical-align: middle;
+      }
+      #error {
+        margin: 45px 10px 30px 10px;
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="error" style="display:none">
+      Could not load lunar phase.
+    </div>
+
+    <div id="spinner" style="display:none">
+      <img src="spinner.gif" /> Loading lunar phase...
+    </div>
+     <script src="popup.js"></script>
+  </body>
+</html>
