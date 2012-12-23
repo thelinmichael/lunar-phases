@@ -1,34 +1,12 @@
 <html>
   <head>
-    <title>Current Lunar Phase</title>
-    <style>
-      body {
-        min-width: 400px;
-        overflow-x: hidden; 
-        background-color: black;   
-        font-family: "Arial";
-        font-size: 14px;
-        color: white;
-      }
-      img {
-        margin: 10px;
-        vertical-align: middle;
-      }
-      #error {
-        margin: 45px 10px 30px 10px;
-        vertical-align: middle;
-      }
-      table {
-        text-align: center;
-        margin-left: 50px;
-      }
-      th {
-        font-weight: bold;
-        padding: 0px 20px;
-      }
-    </style>
+    <link href='http://fonts.googleapis.com/css?family=Quintessential' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Iceland' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../stylesheets/styles.css" type="text/css">
+    <title>Current Lunar Phase</title>  
   </head>
   <body>
+  
     <div id="error" style="display:none">
       Could not load lunar phase.
     </div>
@@ -37,16 +15,18 @@
       <img src="../images/spinner.gif" /> Loading lunar phase...
     </div>
 
-    <table id="dataHolder" style="display:none">
-      <tr>
-        <th>Percent illuminated</th>
-        <th>Age</th>
-      <tr> 
-        <td id="percentIlluminated"></td>
-        <td id="ageOfMoon"></td>
-      </tr>
-    </table>
+    <footer id="footer" style="display:none">
+      <table id="dataHolder">
+        <tr>
+          <th>Part illuminated</th>
+          <th>Age</th>
+        <tr> 
+          <td><span id="percentIlluminated"></span></td>
+          <td><span id="ageOfMoon"></span></td>
+        </tr>
+      </table>
+    </footer>
 
-     <script src="../javascript/popup.js"></script>
+    <script src="../javascripts/popup.js"></script>
   </body>
 </html>

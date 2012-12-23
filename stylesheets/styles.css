@@ -1,0 +1,54 @@
+body {
+  min-width: 400px;
+  overflow-x: hidden; 
+  background-color: black;   
+  font-family: 'Iceland', cursive;
+  font-size: 14px;
+  color: white;
+  margin: 0px;
+}
+
+img {
+  margin: 10px;
+  vertical-align: middle;
+}
+
+.moonImage {
+  margin-left: 30px;
+}
+
+#error {
+  margin: 45px 10px 30px 10px;
+  vertical-align: middle;
+}
+
+table {
+  text-align: center;
+  margin-left: 50px;
+  padding: 20px 0px;
+}
+
+th {
+  padding: 0px 20px 8px 20px;
+  font-weight: normal;
+  font-size: 20px;
+}
+
+td {
+  font-size: 24px;
+}
+
+footer {
+  margin-top: 5px;
+  margin-bottom: 0px;
+  background-color: rgb(18, 60, 112);
+  border-width: 5px 0px 15px 0px;
+  border-color: rgba(9, 38, 97, 0.46);
+  border-style: solid; 
+}
+
+#percentIlluminated, #ageOfMoon {
+  padding: 5px;
+  background-color: rgba(9, 38, 97, 0.46);
+  border-radius: 5px;
+}

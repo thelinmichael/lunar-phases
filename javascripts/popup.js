@@ -1,13 +1,17 @@
 var req = new XMLHttpRequest();
-req.open(
-   "GET",
-    "http://api.wunderground.com/api/45151a5acf9543af/astronomy/q/Sweden/Stockholm.json",
-    true);
-showSpinner(true);
-req.timeout = 8000;
+//req.open(
+//   "GET",
+//    "http://api.wunderground.com/api/45151a5acf9543af/astronomy/q/Sweden/Stockholm.json",
+//    true);
+//showSpinner(true);
+//req.timeout = 8000;
 req.ontimeout = showError;
 req.onload = showPhase; 
-req.send(null);
+
+writeMoonDataToPage(10, 75);
+appendImageToDocument(getImageForMoon(10));
+
+//req.send(null);
 
 function showPhase() {
   showSpinner(false);
@@ -31,7 +35,8 @@ function getImageForMoon(ageOfMoon) {
 function appendImageToDocument(imageSource) {
   var moonImage = document.createElement("img");
   moonImage.src = imageSource; 
-  document.body.insertBefore(moonImage, document.getElementById("dataHolder"));
+  moonImage.className = "moonImage"
+  document.body.insertBefore(moonImage, document.getElementById("footer"));
 }
 
 function showError() {
@@ -46,7 +51,7 @@ function writeMoonDataToPage(ageOfMoon, percentIlluminated) {
   ageOfMoonElement.innerHTML = ageOfMoon + " days";
   percentIlluminatedElement.innerHTML = percentIlluminated + "%";
 
-  document.getElementById("dataHolder").style.display = "block";
+  document.getElementById("footer").style.display = "block";
 }
 
 function showSpinner(shouldShow) {
