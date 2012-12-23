@@ -25,7 +25,7 @@ function showPhase() {
 }
 
 function getImageForMoon(ageOfMoon) {
-  return "moon-images/" + ageOfMoon + ".png";
+  return "../images/moons/" + ageOfMoon + ".png";
 }
 
 function appendImageToDocument(imageSource) {
