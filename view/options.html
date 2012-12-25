@@ -1,25 +1,19 @@
 <html>
 
 <head>
-	<style>
-	.cityListElement {
-		background-color: rgb(0, 96, 141);
-		color: white; 
-		font-family: 'Arial';
-		font-size: 14px;
-		padding: 4px;
-		border-radius: 3px;
-		margin: 4px;
-		line-height: 2em;
-	}
-	</style>
+	<link rel="stylesheet" href="../stylesheets/options.css" type="text/css">
 </head>
 
 <body>
-	<input id="citiesQueryBox" type="text"></input>
-	<div id="cities">
+	<div id="main">
+		<span class="headline">CITY:</span><br>
+		<span class="headline">(Must be set to get correct time for moonrise and moonset)</span>
+		<div id="chosenCity"></div>
+		<input id="citiesQueryBox" type="text"></input>
+		<div id="cities">
+		</div>
+		<script src="../javascripts/options.js" type="text/javascript"></script>
 	</div>
-	<script src="../javascripts/options.js" type="text/javascript"></script>
 </body>
 
 </html>

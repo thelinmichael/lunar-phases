@@ -6,10 +6,15 @@
     <title>Current Lunar Phase</title>  
   </head>
   <body>  
+
     <div id="main">
+
       <div id="error" style="display:none">
         Could not load lunar phase.
       </div>
+
+      <div id="setOptionsDialogue" style="display:none">
+      </div> 
 
       <div id="spinner" style="display:none">
         <img src="../images/spinner.gif" /> Loading lunar phase...
@@ -27,8 +32,10 @@
           <td><span id="ageOfMoon"></span></td>
         </tr>
       </table>
-    </footer>
 
+      <div id="forCity"></div>
+
+    </footer>
     <script src="../javascripts/popup.js"></script>
   </body>
 </html>

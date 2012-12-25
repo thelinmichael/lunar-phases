@@ -10,6 +10,8 @@ function getCities() {
 		req.ontimeout = showError;
 		req.onload = showCityResults; 
 		req.send(null);
+	} else {
+		resetListOfCities();
 	}
 }
 
@@ -32,13 +34,29 @@ function resetListOfCities() {
 
 function showListOfCities(codeToNameMap) {
 	for (var key in codeToNameMap) {
-		cityListElement = document.createElement("span");
-		cityListElement.innerHTML = codeToNameMap[key];
-		cityListElement.className = "cityListElement";
-		document.getElementById(cityListElement).addEventListener('click', chooseCity);
+		cities.appendChild(createListElement(key, codeToNameMap[key]));
 		cities.appendChild(cityListElement);
 		cities.appendChild(document.createElement("br"));
 	}
+}
+
+function createListElement(code, name) {
+	cityListElement = document.createElement("span");
+	cityListElement.innerHTML = name;
+	cityListElement.className = "cityListElement";
+	cityListElement.onclick = function() { chooseCity(code, name); resetListOfCities(); resetCityInput(); };
+	return cityListElement;
+}
+
+function resetCityInput() {
+	document.getElementById("citiesQueryBox").value = "";
+}
+
+function chooseCity(code, name) {
+	chosenCity = document.getElementById("chosenCity");
+	chosenCity.innerHTML = name;
+	localStorage["chosenCityCode"] = code;
+	localStorage["chosenCityName"] = name;
 }
 
 function getCodeAndCitiesFromResponse(response) {

@@ -1,0 +1,29 @@
+body {
+		font-family: 'Arial';
+	}
+	.cityListElement {
+		background-color: rgb(0, 96, 141);
+		color: white; 
+		font-size: 14px;
+		padding: 4px;
+		border-radius: 3px;
+		margin: 4px;
+		line-height: 2em;
+		cursor: pointer;
+	}
+	#chosenCity {
+		margin-top: 10px;
+		min-height: 30px;
+		font-size: 24px;
+	}
+	input {
+		font-size: 20px;
+	}
+	#main {
+		margin-top: 20px;
+		margin-left: 30%;
+		margin-right: auto;
+	}
+	.headline {
+		font-size: 12px;
+	}

@@ -1,13 +1,21 @@
 var req = new XMLHttpRequest();
-req.open(
+
+cityCode = localStorage["chosenCityCode"];
+if (cityCode) {
+  url = "http://api.wunderground.com/api/45151a5acf9543af/astronomy" + cityCode  + ".json"; 
+  console.log(url);
+  req.open(
    "GET",
-    "http://api.wunderground.com/api/45151a5acf9543af/astronomy/q/Sweden/Stockholm.json",
+    url,
     true);
-showSpinner(true);
-req.timeout = 8000;
-req.ontimeout = showError;
-req.onload = showPhase; 
-req.send(null);
+  showSpinner(true);
+  req.timeout = 8000;
+  req.ontimeout = showError;
+  req.onload = showPhase; 
+  req.send(null);
+} else {
+  showSetOptionsDialogue();
+}
 
 function showPhase() {
   showSpinner(false);
@@ -19,9 +27,22 @@ function showPhase() {
 
     writeMoonDataToPage(ageOfMoon, percentIlluminated);
     appendImageToDocument(imageSource);
+    showCityInformation();
   } else {
     showError();
   }
+}
+
+function showSetOptionsDialogue() {
+  setOptionsDialogue = document.getElementById("setOptionsDialogue");
+  setOptionsDialogue.style.display = block;
+  optionsUrl = chrome.extension.getURL("view/options.html");
+  setOptionsDialogue.innerHTML = "Please set your city in the <a href='" + optionsUrl + "' target='_blank'> Lunar Phases options.</a>";
+}
+
+function showCityInformation() {
+  optionsUrl = chrome.extension.getURL("view/options.html");
+  document.getElementById("forCity").innerHTML = "Showing data for " + localStorage["chosenCityName"] + "<a href='" + optionsUrl + "' target='_blank'>" + " (change)</a>";
 }
 
 function getImageForMoon(ageOfMoon) {
