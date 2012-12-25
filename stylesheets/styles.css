@@ -21,17 +21,16 @@ img {
 }
 
 .moonImage {
-  margin-left: 11%;
+  margin-left: 17%;
 }
 
-#error {
+#error, #setOptionsDialogue {
   margin: 45px 10px 30px 10px;
   vertical-align: middle;
 }
 
 table {
   text-align: center;
-  margin-left: 50px;
   padding: 20px 0px;
 }
 
@@ -51,9 +50,10 @@ footer {
   border-width: 5px 5px 15px 5px;
   border-color: rgba(9, 38, 97, 0.46);
   border-style: solid; 
+  min-width: 460px;
 }
 
-#percentIlluminated, #ageOfMoon {
+#percentIlluminated, #ageOfMoon, #sunRise, #sunSet {
   padding: 5px;
   background-color: rgba(9, 38, 97, 0.46);
   border-radius: 5px;
