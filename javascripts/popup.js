@@ -31,8 +31,8 @@ function getImageForMoon(ageOfMoon) {
 function appendImageToDocument(imageSource) {
   var moonImage = document.createElement("img");
   moonImage.src = imageSource; 
-  moonImage.className = "moonImage"
-  document.body.insertBefore(moonImage, document.getElementById("footer"));
+  moonImage.className = "moonImage";
+  document.getElementById("main").appendChild(moonImage);
 }
 
 function showError() {

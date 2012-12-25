@@ -8,13 +8,20 @@ body {
   margin: 0px;
 }
 
+#main {
+  border-width: 5px 5px 0px 3px;
+  border-left-width: 5px;
+  border-color: rgb(53, 53, 53);
+  border-style: solid;
+}
+
 img {
   margin: 10px;
   vertical-align: middle;
 }
 
 .moonImage {
-  margin-left: 30px;
+  margin-left: 11%;
 }
 
 #error {
@@ -39,10 +46,9 @@ td {
 }
 
 footer {
-  margin-top: 5px;
   margin-bottom: 0px;
   background-color: rgb(18, 60, 112);
-  border-width: 5px 0px 15px 0px;
+  border-width: 5px 5px 15px 5px;
   border-color: rgba(9, 38, 97, 0.46);
   border-style: solid; 
 }
