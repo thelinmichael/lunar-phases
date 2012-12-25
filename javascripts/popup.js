@@ -36,7 +36,7 @@ function showPhase() {
 
 function showSetOptionsDialogue() {
   setOptionsDialogue = document.getElementById("setOptionsDialogue");
-  setOptionsDialogue.style.display = block;
+  setOptionsDialogue.style.display = "block";
   optionsUrl = chrome.extension.getURL("view/options.html");
   setOptionsDialogue.innerHTML = "Please set your city in the <a href='" + optionsUrl + "' target='_blank'> Lunar Phases options.</a>";
 }
