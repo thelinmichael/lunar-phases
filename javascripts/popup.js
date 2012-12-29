@@ -38,7 +38,9 @@ function showSetOptionsDialogue() {
   setOptionsDialogue = document.getElementById("setOptionsDialogue");
   setOptionsDialogue.style.display = "block";
   optionsUrl = chrome.extension.getURL("view/options.html");
-  setOptionsDialogue.innerHTML = "Please set your city in the <a href='" + optionsUrl + "' target='_blank'> Lunar Phases options.</a>";
+  setOptionsDialogue.innerHTML = "You need to select your city in order to determine the time for sunset and sunrise. <br /><br /> <a href='" + optionsUrl + "' target='_blank'>Select city</a>";
+
+  document.getElementById("main").className = "expandedMain";
 }
 
 function showCityInformation() {
@@ -60,6 +62,7 @@ function appendImageToDocument(imageSource) {
 function showError() {
   error = document.getElementById("error");
   error.style.display = "block"; 
+  document.getElementById("main").className = "expandedMain";
 }
 
 function writeMoonDataToPage(ageOfMoon, percentIlluminated, sunrise, sunset) {

@@ -1,29 +1,72 @@
+html { 
+	background: url("../images/background.jpg") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
 body {
 		font-family: 'Arial';
-	}
-	.cityListElement {
-		background-color: rgb(0, 96, 141);
-		color: white; 
-		font-size: 14px;
-		padding: 4px;
-		border-radius: 3px;
-		margin: 4px;
-		line-height: 2em;
-		cursor: pointer;
-	}
-	#chosenCity {
-		margin-top: 10px;
-		min-height: 30px;
-		font-size: 24px;
-	}
-	input {
-		font-size: 20px;
-	}
-	#main {
-		margin-top: 20px;
-		margin-left: 30%;
-		margin-right: auto;
-	}
-	.headline {
-		font-size: 12px;
-	}
+		color: white;
+		overflow-y: scroll;
+}
+
+.cityListElement {
+	background-color: rgba(3, 81, 117, 0.78);
+	color: white; 
+	font-size: 14px;
+	padding: 4px;
+	border-radius: 3px;
+	margin: 4px;
+	line-height: 2em;
+	cursor: pointer;
+	font-family: 'Noticia Text', serif;
+}
+
+.highLighted {
+	background-color: rgb(3, 81, 117);
+}
+
+#chosenCity {
+	margin-bottom: 20px;
+	font-family: 'Noticia Text', serif;
+}
+
+input {
+	padding: 5px;
+	font-size: 24px;
+	border-width: 0px;
+	border-color: rgb(0, 96, 141);
+	border-radius: 5px;
+}
+
+input.spinner {
+    background-image: url('../images/spinner-white.gif');
+    background-repeat: no-repeat;
+    background-position: right;
+    background-size: 35px 35px;  
+}
+
+#main {
+	margin-top: 20px;
+	margin-left: 30%;
+	margin-right: auto;
+}
+
+.headline {
+	font-size: 14px;
+}
+
+#currentCity {
+	margin-left: 10px;
+	font-size: 24px;	
+}
+
+#spinner {
+	width: 35px;
+	height: 35px;
+	position: relative;
+	top: 10px;
+	right: 44px
+}

@@ -9,10 +9,15 @@ body {
 }
 
 #main {
-  border-width: 5px 5px 0px 3px;
-  border-left-width: 5px;
+  border-width: 5px 5px 0px 5px;
   border-color: rgb(53, 53, 53);
   border-style: solid;
+}
+
+.expandedMain {
+  height : 100%;
+  margin-bottom : 20px;
+  border-width: 5px; 
 }
 
 img {
@@ -25,8 +30,15 @@ img {
 }
 
 #error, #setOptionsDialogue {
+  font-family: 'Arial';
   margin: 45px 10px 30px 10px;
   vertical-align: middle;
+  font-size: 14px;
+}
+
+#setOptionsDialogue a {
+  text-decoration: none;
+  color: rgb(103, 153, 255);
 }
 
 table {

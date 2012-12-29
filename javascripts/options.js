@@ -1,8 +1,21 @@
 var req = new XMLHttpRequest();
 
+updateChosenCityName();
+
+function updateChosenCityName() {
+	city = localStorage["chosenCityName"];
+
+	if (city) {
+		document.getElementById("currentCity").innerHTML = city;
+	} else {
+		document.getElementById("currentCity").innerHTML = "None.";
+	}
+}
+
 function getCities() {
 	query = document.getElementById("citiesQueryBox").value;	
 	if (query != "") {
+		showSpinner();
 		req.open("GET",
     		 "http://autocomplete.wunderground.com/aq?format=JSON&query=" + query,
     	      true);
@@ -11,15 +24,17 @@ function getCities() {
 		req.onload = showCityResults; 
 		req.send(null);
 	} else {
+		hideSpinner();
 		resetListOfCities();
 	}
 }
 
 function showError() {
-	console.log("Error occured while fetching cities.");
+	console.log("Error occured while fetching cities. Please try again later.");
 }
 
 function showCityResults() {
+	hideSpinner();
 	codeToNameMap = getCodeAndCitiesFromResponse(req.responseText);
 	resetListOfCities();
 	showListOfCities(codeToNameMap);
@@ -45,6 +60,8 @@ function createListElement(code, name) {
 	cityListElement.innerHTML = name;
 	cityListElement.className = "cityListElement";
 	cityListElement.onclick = function() { chooseCity(code, name); resetListOfCities(); resetCityInput(); };
+	cityListElement.onmouseover = function() { this.className = "cityListElement highLighted"; }
+	cityListElement.onmouseout = function() { this.className = "cityListElement"; }
 	return cityListElement;
 }
 
@@ -53,10 +70,9 @@ function resetCityInput() {
 }
 
 function chooseCity(code, name) {
-	chosenCity = document.getElementById("chosenCity");
-	chosenCity.innerHTML = name;
 	localStorage["chosenCityCode"] = code;
 	localStorage["chosenCityName"] = name;
+	updateChosenCityName();
 }
 
 function getCodeAndCitiesFromResponse(response) {
@@ -70,6 +86,14 @@ function getCodeAndCitiesFromResponse(response) {
 		}
     }
     return codeToNameMap;
+}
+
+function showSpinner() {
+ 	document.getElementById("citiesQueryBox").className = "spinner";
+}
+
+function hideSpinner() {
+ 	document.getElementById("citiesQueryBox").className = "";
 }
 
 document.getElementById("citiesQueryBox").addEventListener('keyup', getCities);
