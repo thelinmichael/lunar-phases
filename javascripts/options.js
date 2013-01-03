@@ -8,7 +8,7 @@ function updateChosenCityName() {
 	if (city) {
 		document.getElementById("currentCity").innerHTML = city;
 	} else {
-		document.getElementById("currentCity").innerHTML = "None.";
+		document.getElementById("currentCity").innerHTML = "None chosen yet";
 	}
 }
 
@@ -73,6 +73,12 @@ function chooseCity(code, name) {
 	localStorage["chosenCityCode"] = code;
 	localStorage["chosenCityName"] = name;
 	updateChosenCityName();
+	resetBadge();
+}
+
+function resetBadge() {
+    chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]});
+    chrome.browserAction.setBadgeText({text:""});
 }
 
 function getCodeAndCitiesFromResponse(response) {
