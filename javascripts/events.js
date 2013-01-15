@@ -1,20 +1,7 @@
 var req = new XMLHttpRequest();
 
 chrome.runtime.onStartup.addListener(function() {
-	// Update data only if it hasn't been done today already
-
-	// Get today's date. 
-	today = new Date();
-	dd = today.getDate();	
-	mm = today.getMonth() + 1;
-	yyyy = today.getFullYear();
-	todayFormatted = dd + "/" + mm + "/" + yyyy;
-
-	// Update if update has never been done or if it hasn't been done today. 
-	if (localStorage["lastUpdate"] == null || localStorage["lastUpdate"] != todayFormatted) {		
-		update();
-		localStorage["lastUpdate"] = todayFormatted;
-	} 
+	update();
 });
 
 // Call Wunderground API 

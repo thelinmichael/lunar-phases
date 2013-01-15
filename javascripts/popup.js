@@ -35,19 +35,9 @@ function showPhase() {
     showCityInformation();
     setPhaseIcon();
     setIcon(ageOfMoon);
-    setUpdate();
   } else {
     showError();
   }
-}
-
-function setUpdate() {
-  today = new Date();
-  dd = today.getDate(); 
-  mm = today.getMonth() + 1;
-  yyyy = today.getFullYear();
-  todayFormatted = dd + "/" + mm + "/" + yyyy;
-  localStorage["lastUpdate"] = todayFormatted; 
 }
 
 // Error occured during call to API
