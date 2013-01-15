@@ -111,14 +111,35 @@ function showError() {
 }
 
 function writeMoonDataToPage(ageOfMoon, percentIlluminated, sunrise, sunset) {
-  ageOfMoonElement = document.getElementById("ageOfMoon");
   percentIlluminatedElement = document.getElementById("percentIlluminated");
   sunRiseElement = document.getElementById("sunRise");
   sunSetElement = document.getElementById("sunSet");
-  ageOfMoonElement.innerHTML = ageOfMoon + " days";
+  moonState = document.getElementById("moonState");
   percentIlluminatedElement.innerHTML = percentIlluminated + "%";
   sunRiseElement.innerHTML = sunrise;
   sunSetElement.innerHTML = sunset;
+
+  var phase = "";
+  if (ageOfMoon <= 1) {
+    phase = "New moon";
+  } else if (ageOfMoon > 1 && ageOfMoon < 6) {
+    phase = "Waxing crescent";
+  } else if (ageOfMoon == 6) {
+    phase = "First quarter";
+  } else if (ageOfMoon > 6 && ageOfMoon < 13) {
+    phase = "Waxing gibbous";
+  } else if (ageOfMoon >= 13 && ageOfMoon <= 14) {
+    phase = "Full moon";
+  } else if (ageOfMoon > 14 && ageOfMoon < 22) {
+    phase = "Waning gibbous";
+  } else if (ageOfMoon == 22) {
+    phase = "Third quarter";
+  } else if (ageOfMoon > 22 && ageOfMoon < 29) {
+    phase = "Waning crescent";
+  } else if (ageOfMoon == 29) {
+    phase = "Dark moon"
+  } 
+  moonState.innerHTML = phase;
 
   document.getElementById("footer").style.display = "block";
 }

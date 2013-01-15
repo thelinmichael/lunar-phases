@@ -1,5 +1,5 @@
 body {
-  min-width: 400px;
+  min-width: 536px;
   overflow-x: hidden; 
   background-color: black;   
   font-family: 'Iceland', cursive;
@@ -65,7 +65,7 @@ footer {
   min-width: 460px;
 }
 
-#percentIlluminated, #ageOfMoon, #sunRise, #sunSet {
+#percentIlluminated, #ageOfMoon, #sunRise, #sunSet, #moonState {
   padding: 5px;
   background-color: rgba(9, 38, 97, 0.46);
   border-radius: 5px;
@@ -83,4 +83,12 @@ footer {
 #forCity a:hover {
   color: grey;
   text-decoration: none;
+}
+
+#moonState {
+  font-size: 20px;
+}
+
+table {
+  margin-left: 15px;
 }
