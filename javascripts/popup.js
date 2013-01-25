@@ -118,30 +118,40 @@ function writeMoonDataToPage(ageOfMoon, percentIlluminated, sunrise, sunset) {
   percentIlluminatedElement.innerHTML = percentIlluminated + "%";
   sunRiseElement.innerHTML = sunrise;
   sunSetElement.innerHTML = sunset;
-
-  var phase = "";
-  if (ageOfMoon <= 1) {
-    phase = "New moon";
-  } else if (ageOfMoon > 1 && ageOfMoon < 6) {
-    phase = "Waxing crescent";
-  } else if (ageOfMoon == 6) {
-    phase = "First quarter";
-  } else if (ageOfMoon > 6 && ageOfMoon < 13) {
-    phase = "Waxing gibbous";
-  } else if (ageOfMoon >= 13 && ageOfMoon <= 14) {
-    phase = "Full moon";
-  } else if (ageOfMoon > 14 && ageOfMoon < 22) {
-    phase = "Waning gibbous";
-  } else if (ageOfMoon == 22) {
-    phase = "Third quarter";
-  } else if (ageOfMoon > 22 && ageOfMoon < 29) {
-    phase = "Waning crescent";
-  } else if (ageOfMoon == 29) {
-    phase = "Dark moon"
-  } 
-  moonState.innerHTML = phase;
+	
+  moonState.innerHTML = getPhase(ageOfMoon, percentIlluminated);
 
   document.getElementById("footer").style.display = "block";
+  
+}
+
+function getPhase(ageOfMoon, percentIlluminated) {
+  var phase = "";
+ 
+  if (ageOfMoon <= 14) { //Waxing
+     if (percentIlluminated <= 5) {
+        phase = "New moon";
+     } else if (percentIlluminated > 5 && percentIlluminated <= 45) {
+        phase = "Waxing crescent";
+     } else if (percentIlluminated > 45 && percentIlluminated <= 55) {
+        phase = "First quarter";
+     } else if (percentIlluminated > 55 && percentIlluminated <= 95) {
+        phase = "Waxing gibbous";
+     } else if (percentIlluminated > 95) {
+        phase = "Full moon"; 
+     } 
+  } else { // Waning
+     if (percentIlluminated <= 45) {
+        phase = "Waning Crescent";
+     } else if (percentIlluminated > 45 && percentIlluminated <= 55) {
+        phase = "Last Quarter";
+     } else if (percentIlluminated > 55 && percentIlluminated <= 95) {
+        phase = "Waning gibbous";
+     } else if (percentIlluminated > 95) {
+        phase = "Full moon"; 
+     } 
+  }
+   return phase;
 }
 
 function showSpinner(shouldShow) {
