@@ -65,7 +65,7 @@ footer {
   min-width: 460px;
 }
 
-#percentIlluminated, #ageOfMoon, #sunRise, #sunSet, #moonState {
+.moonMetric {
   padding: 5px;
   background-color: rgba(9, 38, 97, 0.46);
   border-radius: 5px;
@@ -76,11 +76,8 @@ footer {
   font-size: 10px;
   margin-left: 5px;
 }
-#forCity a {
-  color: grey;
-  text-decoration: none;
-}
-#forCity a:hover {
+
+#forCity a, #forCity a:hover {
   color: grey;
   text-decoration: none;
 }
