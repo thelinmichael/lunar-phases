@@ -32,6 +32,10 @@ function setErrorIcon() {
 function setPhaseIcon() {
 	 if (req.status == 200) {
 	    jsonResponse = JSON.parse(req.responseText);
+	     if ((jsonResponse.response != null || jsonResponse.response != undefined) && (jsonResponse.response.error != null || jsonResponse.response.error != undefined)) {
+                showError();
+             }
+
 	    var ageOfMoon = jsonResponse.moon_phase.ageOfMoon;
 	    var imageSource = getIconForMoon(ageOfMoon);
 

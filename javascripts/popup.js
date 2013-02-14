@@ -1,7 +1,7 @@
 var req = new XMLHttpRequest();
 update();
 
-function update() { 
+function update() {
   cityCode = localStorage["chosenCityCode"];
   if (cityCode) {
     url = "http://api.wunderground.com/api/45151a5acf9543af/astronomy" + cityCode  + ".json"; 
@@ -24,6 +24,11 @@ function showPhase() {
   showSpinner(false);
   if (req.status == 200) {
     jsonResponse = JSON.parse(req.responseText);
+
+    if ((jsonResponse.response != null || jsonResponse.response != undefined) && (jsonResponse.response.error != null || jsonResponse.response.error != undefined)) {
+	showError();
+    }
+
     var percentIlluminated = jsonResponse.moon_phase.percentIlluminated; 
     var ageOfMoon = jsonResponse.moon_phase.ageOfMoon;
     var sunrise = jsonResponse.moon_phase.sunrise.hour + ":" + jsonResponse.moon_phase.sunrise.minute;
