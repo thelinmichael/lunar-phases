@@ -1,8 +1,25 @@
 var req = new XMLHttpRequest();
 
 chrome.runtime.onStartup.addListener(function() {
-	update();
+  if (cacheHasTimedOut()) {
+	 update();
+   setCache();
+  }
 });
+
+function cacheHasTimedOut() {
+  cachedTime = localStorage["cachedTime"];
+  if (cachedTime == null) {
+    return false; 
+  } else {
+    today = new Date().toUTCString().substring(0,16);
+    return (cachedTime != today);
+  }
+}
+
+function setCache() {
+  localStorage["cachedTime"] = new Date().toUTCString().substring(0,16);
+}
 
 // Call Wunderground API 
 function update() {
