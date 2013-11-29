@@ -13,9 +13,10 @@
     "scripts" : ["javascripts/events.js"],
     "persistent" : false
   },
-  "icons": { "16": "images/moon-icon-16.png",
-           "48": "images/moon-icon-48.png",
-          "128": "images/moon-icon.png" },
+  "icons": {
+    "16": "images/moon-icon-16.png",
+    "48": "images/moon-icon-48.png",
+    "128": "images/moon-icon.png" },
   "permissions": [
     "http://*.wunderground.com/"
   ]

@@ -10,7 +10,7 @@ chrome.runtime.onStartup.addListener(function() {
 function cacheHasTimedOut() {
   cachedTime = localStorage["cachedTime"];
   if (cachedTime == null) {
-    return false; 
+    return false;
   } else {
     today = new Date().toUTCString().substring(0,16);
     return (cachedTime != today);
@@ -21,18 +21,18 @@ function setCache() {
   localStorage["cachedTime"] = new Date().toUTCString().substring(0,16);
 }
 
-// Call Wunderground API 
+// Call Wunderground API
 function update() {
   cityCode = localStorage["chosenCityCode"];
   if (cityCode) {
-    url = "http://api.wunderground.com/api/45151a5acf9543af/astronomy" + cityCode  + ".json"; 
+    url = "http://api.wunderground.com/api/45151a5acf9543af/astronomy" + cityCode  + ".json";
     req.open(
      "GET",
       url,
       true);
     req.timeout = 8000;
     req.ontimeout = setErrorIcon;
-    req.onload = setPhaseIcon;     	 
+    req.onload = setPhaseIcon;
     req.send(null);
   } else {
     setOptionsIcon();
@@ -43,7 +43,7 @@ function update() {
 function setErrorIcon() {
 	chrome.browserAction.setBadgeBackgroundColor({color:[250, 0, 0, 230]});
 	chrome.browserAction.setBadgeText({text:"!"});
-} 
+}
 
 // Successful call, change icon to show the phase
 function setPhaseIcon() {

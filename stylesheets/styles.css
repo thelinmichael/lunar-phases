@@ -1,7 +1,7 @@
 body {
   min-width: 536px;
-  overflow-x: hidden; 
-  background-color: black;   
+  overflow-x: hidden;
+  background-color: black;
   font-family: 'Iceland', cursive;
   font-size: 14px;
   color: white;
@@ -17,7 +17,7 @@ body {
 .expandedMain {
   height : 100%;
   margin-bottom : 20px;
-  border-width: 5px; 
+  border-width: 5px;
 }
 
 img {

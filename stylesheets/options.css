@@ -1,5 +1,5 @@
-html { 
-	background: url("../images/background.jpg") no-repeat center center fixed; 
+html {
+	background: url("../images/background.jpg") no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
@@ -14,7 +14,7 @@ body {
 
 .cityListElement {
 	background-color: rgba(3, 81, 117, 0.78);
-	color: white; 
+	color: white;
 	font-size: 14px;
 	padding: 4px;
 	border-radius: 3px;
@@ -45,7 +45,7 @@ input.spinner {
     background-image: url('../images/spinner-white.gif');
     background-repeat: no-repeat;
     background-position: right;
-    background-size: 35px 35px;  
+    background-size: 35px 35px;
 }
 
 #main {
@@ -60,7 +60,7 @@ input.spinner {
 
 #currentCity {
 	margin-left: 10px;
-	font-size: 24px;	
+	font-size: 24px
 }
 
 #spinner {

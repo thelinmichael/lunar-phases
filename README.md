@@ -13,4 +13,4 @@ If you want to know how to develop Chrome extensions or want to install this ext
 
 
 ### Other
-Lunar phases' in-browser icon updates to match the current lunar phase. This update is done when the icon is clicked. It can also update when the browser opens, but since this triggers way too many calls to the API, and since the API key is used for a free account with a limited amount of calls, the current phase either needs to be cached or kept as it is today. 
+Lunar phases' in-browser icon updates to match the current lunar phase. This update is done when the icon is clicked. It can also update when the browser opens, but since this triggers way too many calls to the API, and since the API key is used for a free account with a limited amount of calls, the current phase either needs to be cached or kept as it is today.

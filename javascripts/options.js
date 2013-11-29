@@ -13,7 +13,7 @@ function updateChosenCityName() {
 }
 
 function getCities() {
-	query = document.getElementById("citiesQueryBox").value;	
+	query = document.getElementById("citiesQueryBox").value;
 	if (query != "") {
 		showSpinner();
 		req.open("GET",
@@ -21,7 +21,7 @@ function getCities() {
     	      true);
 		req.timeout = 8000;
 		req.ontimeout = showError;
-		req.onload = showCityResults; 
+		req.onload = showCityResults;
 		req.send(null);
 	} else {
 		hideSpinner();
@@ -85,9 +85,9 @@ function getCodeAndCitiesFromResponse(response) {
 	jsonResponse = JSON.parse(req.responseText);
     codeToNameMap = {}
 	for (var i = 0; i < jsonResponse.RESULTS.length; i++) {
-		if (jsonResponse.RESULTS[i].type == "city") {		
+		if (jsonResponse.RESULTS[i].type == "city") {
 		    cityName = jsonResponse.RESULTS[i].name;
-		    cityCode = jsonResponse.RESULTS[i].l; 
+		    cityCode = jsonResponse.RESULTS[i].l;
 		    codeToNameMap[cityCode] = cityName;
 		}
     }
