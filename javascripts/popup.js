@@ -116,15 +116,16 @@ function showError() {
 }
 
 function writeMoonDataToPage(ageOfMoon, percentIlluminated, sunrise, sunset) {
-  percentIlluminatedElement = document.getElementById("percentIlluminated");
-  sunRiseElement = document.getElementById("sunRise");
-  sunSetElement = document.getElementById("sunSet");
-  moonState = document.getElementById("moonState");
+  var percentIlluminatedElement = document.getElementById("percentIlluminated");
+  var sunRiseElement = document.getElementById("sunRise");
+  var sunSetElement = document.getElementById("sunSet");
+  var ageOfMoonElement = document.getElementById("ageOfMoon");
+  //moonState = document.getElementById("moonState");
   percentIlluminatedElement.innerHTML = percentIlluminated + "%";
   sunRiseElement.innerHTML = sunrise;
   sunSetElement.innerHTML = sunset;
-
-  moonState.innerHTML = getPhase(ageOfMoon, percentIlluminated);
+  ageOfMoonElement.innerHTML = ageOfMoon + (ageOfMoon == 1 ? " day" : " days");
+  //moonState.innerHTML = getPhase(ageOfMoon, percentIlluminated);
 
   document.getElementById("footer").style.display = "block";
 }
