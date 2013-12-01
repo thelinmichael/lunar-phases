@@ -19,5 +19,6 @@
     "128": "images/moon-icon.png" },
   "permissions": [
     "http://*.wunderground.com/"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }
