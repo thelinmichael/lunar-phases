@@ -140,7 +140,7 @@ function getPhase(ageOfMoon, percentIlluminated) {
     return "Waxing gibbous";
   } else if ((14 <= ageOfMoon <= 16) && (percentIlluminated >= 99)) {
     return "Full moon";
-  } else if (16 <= ageOfMoon <= 19) && (percentIlluminated < 99) {
+  } else if ((16 <= ageOfMoon <= 19) && (percentIlluminated < 99)) {
     return "Waning gibbous";
   } else if (20 <= ageOfMoon <= 22) {
     return "Last quarter";
