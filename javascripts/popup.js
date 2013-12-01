@@ -132,32 +132,25 @@ function writeMoonDataToPage(ageOfMoon, percentIlluminated, sunrise, sunset) {
 }
 
 function getPhase(ageOfMoon, percentIlluminated) {
-  var phase = "";
-
-  if (ageOfMoon <= 14) { //Waxing
-    if (percentIlluminated <= 5) {
-       phase = "New moon";
-    } else if (percentIlluminated > 5 && percentIlluminated <= 45) {
-       phase = "Waxing crescent";
-    } else if (percentIlluminated > 45 && percentIlluminated <= 55) {
-       phase = "First quarter";
-    } else if (percentIlluminated > 55 && percentIlluminated <= 95) {
-       phase = "Waxing gibbous";
-    } else if (percentIlluminated > 95) {
-       phase = "Full moon";
-    }
-  } else { // Waning
-    if (percentIlluminated <= 45) {
-       phase = "Waning Crescent";
-    } else if (percentIlluminated > 45 && percentIlluminated <= 55) {
-       phase = "Last Quarter";
-    } else if (percentIlluminated > 55 && percentIlluminated <= 95) {
-       phase = "Waning gibbous";
-    } else if (percentIlluminated > 95) {
-       phase = "Full moon";
-    }
+  if (0 <= ageOfMoon <= 5) {
+    return "Waxing crescent";
+  } else if (6 <= ageOfMoon <= 8) {
+    return "First quarter";
+  } else if ((9 <= ageOfMoon <= 14) && (percentIlluminated < 99)) {
+    return "Waxing gibbous";
+  } else if ((14 <= ageOfMoon <= 16) && (percentIlluminated >= 99)) {
+    return "Full moon";
+  } else if (16 <= ageOfMoon <= 19) && (percentIlluminated < 99) {
+    return "Waning gibbous";
+  } else if (20 <= ageOfMoon <= 22) {
+    return "Last quarter";
+  } else if (23 <= ageOfMoon <= 27) {
+    return "Waning crescent";
+  } else if (28 <= ageOfMoon <= 30) {
+    return "New moon";
+  } else {
+    return "Could not calculate phase.";
   }
-    return phase;
 }
 
 function showSpinner(shouldShow) {
