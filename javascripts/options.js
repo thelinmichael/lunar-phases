@@ -8,7 +8,7 @@ function updateChosenCityName() {
 	if (city) {
 		document.getElementById("currentCity").innerHTML = city;
 	} else {
-		document.getElementById("currentCity").innerHTML = "None chosen yet";
+		document.getElementById("currentCity").innerHTML = "None chosen yet. Please type the name of a city below.";
 	}
 }
 

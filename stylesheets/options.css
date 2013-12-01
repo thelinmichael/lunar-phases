@@ -7,9 +7,13 @@ html {
 }
 
 body {
-		font-family: 'Arial';
-		color: white;
 		overflow-y: scroll;
+}
+
+a, a:visited, a:active {
+	color: #ccc;
+	font-weight: bold;
+	text-decoration: none
 }
 
 .cityListElement {
@@ -21,16 +25,10 @@ body {
 	margin: 4px;
 	line-height: 2em;
 	cursor: pointer;
-	font-family: 'Noticia Text', serif;
 }
 
 .highLighted {
 	background-color: rgb(3, 81, 117);
-}
-
-#chosenCity {
-	margin-bottom: 20px;
-	font-family: 'Noticia Text', serif;
 }
 
 input {
@@ -39,19 +37,43 @@ input {
 	border-width: 0px;
 	border-color: rgb(0, 96, 141);
 	border-radius: 5px;
+	width: 350px;
+	margin-left: 10px;
 }
 
 input.spinner {
-    background-image: url('../images/spinner-white.gif');
-    background-repeat: no-repeat;
-    background-position: right;
-    background-size: 35px 35px;
+  background-image: url('../images/spinner-white.gif');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: 25px 25px;
+  margin-right: 5px;
 }
 
-#main {
+#container {
+	width: 83%;
+	margin-left: 5%;
+}
+
+.box {
+	font-family: 'Arial', serif;
+	color: white;
 	margin-top: 20px;
-	margin-left: 30%;
+	margin-left: 30px;
 	margin-right: auto;
+	width: 35%;
+	background-color: rgba(0,0,0,0.3);
+	padding: 0px 20px 20px 20px;
+	border-radius: 4px;
+}
+
+#about {
+	float: left;
+	margin-left: 15%;
+}
+
+#chosenCity {
+	float: right;
+	margin-right: 8%;
 }
 
 .headline {
@@ -60,7 +82,6 @@ input.spinner {
 
 #currentCity {
 	margin-left: 10px;
-	font-size: 24px
 }
 
 #spinner {

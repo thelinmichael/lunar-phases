@@ -1,20 +1,37 @@
 <html>
 
 <head>
+	<title>Lunar phases options</title>
 	<link rel="stylesheet" href="../stylesheets/options.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Noticia+Text' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-	<div id="main">
-		<div id="chosenCity">
-			<div class="headline">Currently selected city</div><span id="currentCity"> </span><br>
-		</div>
-		<input id="citiesQueryBox" type="text"></input>
-		<div id="cities">
-		</div>
-		<script src="../javascripts/options.js" type="text/javascript"></script>
-	</div>
-</body>
 
+	<div id="container">
+
+		<div class="box" id="about">
+			<h3>About</h3>
+			<p>This is the options page for Lunar phases, a simple Chrome extension.</p>
+			<h3>Disclaimer</h3>
+			<p>Moon phase information is an approximation only. For exact Moon phase data, please see the Phases on of the Moon page on the website of the <a target="_new" href="http://aa.usno.navy.mil/data/docs/MoonPhase.php">U.S. Naval Observatory</a>.</p>
+			<h3>Collaboration</h3>
+			<p>The code for Lunar phases is hosted on GitHub, and any bug reports, feature requests and pull requests can be sent through <a href="https://github.com/thelinmichael/lunar-phases" target="_new">the project page</a>. The downloadable is hosted on the <a href="https://chrome.google.com/webstore/detail/lunar-phases/gonoapcaanboccgahfbaegafbckgmceh?hl=sv" target="_new">Chrome Web Store</a>.
+			<h3>APIs used</h3>
+			<a href="http://wunderground.com" target="_new">Weather Underground</a>
+			<h3>Thanks</h3>
+			Garland Scott Pass, USA
+		</div>
+
+		<div class="box" id="chosenCity">
+			<h3>Currently selected city</h3>
+			<span id="currentCity"></span><br /><br />
+			<input id="citiesQueryBox" type="text"></input>
+			<div id="cities"></div>
+		</div>
+
+	</div>
+
+	<script src="../javascripts/options.js" type="text/javascript"></script>
+</body>
 </html>
