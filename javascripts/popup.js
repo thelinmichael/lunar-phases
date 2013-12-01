@@ -106,7 +106,7 @@ function appendImageToDocument(imageSource) {
   var moonImage = document.createElement("img");
   moonImage.src = imageSource;
   moonImage.className = "moonImage";
-  document.getElementById("main").appendChild(moonImage);
+  document.getElementById("moonImagePlaceholder").appendChild(moonImage);
 }
 
 function showError() {
@@ -120,12 +120,13 @@ function writeMoonDataToPage(ageOfMoon, percentIlluminated, sunrise, sunset) {
   var sunRiseElement = document.getElementById("sunRise");
   var sunSetElement = document.getElementById("sunSet");
   var ageOfMoonElement = document.getElementById("ageOfMoon");
-  //moonState = document.getElementById("moonState");
+  var moonStateElement = document.getElementById("moonState");
+
   percentIlluminatedElement.innerHTML = percentIlluminated + "%";
   sunRiseElement.innerHTML = sunrise;
   sunSetElement.innerHTML = sunset;
   ageOfMoonElement.innerHTML = ageOfMoon + (ageOfMoon == 1 ? " day" : " days");
-  //moonState.innerHTML = getPhase(ageOfMoon, percentIlluminated);
+  moonStateElement.innerHTML = getPhase(ageOfMoon, percentIlluminated);
 
   document.getElementById("footer").style.display = "block";
 }
