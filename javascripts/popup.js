@@ -33,9 +33,9 @@ function updatePhase() {
 }
 
 function requestPhaseForCity(callbacks) {
-  var wundergroundBaseURL = "http://api.wunderground.com/api/45151a5acf9543af/astronomy";
+  var wundergroundAstronomyBaseURL = "http://api.wunderground.com/api/45151a5acf9543af/astronomy";
   var formatParameter = ".json";
-  var getCityDataUrl = wundergroundBaseURL + getSelectedCityCode() + formatParameter;
+  var getCityDataUrl = wundergroundAstronomyBaseURL + getSelectedCityCode() + formatParameter;
 
   var req = new XMLHttpRequest();
   req.open("GET", getCityDataUrl, true);

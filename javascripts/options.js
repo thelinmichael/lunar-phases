@@ -1,51 +1,108 @@
-var req = new XMLHttpRequest();
+appendSelectedCityOnPage();
 
-updateChosenCityName();
-
-function updateChosenCityName() {
-	city = localStorage["chosenCityName"];
-
-	if (city) {
-		document.getElementById("currentCity").innerHTML = city;
+function appendSelectedCityOnPage() {
+	if (isCitySelected()) {
+		appendCityName(getSelectedCityName());
 	} else {
-		document.getElementById("currentCity").innerHTML = "None chosen yet. Please type the name of a city below.";
+		appendCityName("None chosen yet. Please type the name of a city below.");
 	}
+};
+
+function appendCityName(cityText) {
+	document.getElementById("currentCity").innerHTML = cityText;
+}
+
+function isCitySelected() {
+  return (localStorage.getItem("chosenCityCode") != undefined);
+};
+
+function getSelectedCityCode() {
+  return (localStorage.getItem("chosenCityCode"));
+};
+
+function getSelectedCityName() {
+  return (localStorage.getItem("chosenCityName"));
+};
+
+/* When the user presses key up in the input box */
+document.getElementById("citiesQueryBox").addEventListener('keyup', updateListOfCities);
+
+function updateListOfCities() {
+	if (queryIsLongEnough()) {
+		getCities();
+  } else {
+		resetListOfCities();
+  }
 }
 
 function getCities() {
-	query = document.getElementById("citiesQueryBox").value;
-	if (query != "") {
-		showSpinner();
-		req.open("GET",
-    		 "http://autocomplete.wunderground.com/aq?format=JSON&query=" + query,
-    	      true);
-		req.timeout = 8000;
-		req.ontimeout = showError;
-		req.onload = showCityResults;
-		req.send(null);
-	} else {
-		hideSpinner();
-		resetListOfCities();
-	}
-}
+	showSpinner();
+	requestCities({
+		onError : function(error) {
+			hideSpinner();
+		},
+		onSuccess : function(response) {
+			hideSpinner();
+			showCityResults(response);
+		}
+	});
+};
 
+function queryIsLongEnough() {
+	return (getQuery().length > 1);
+};
+
+function getQuery() {
+	return document.getElementById("citiesQueryBox").value;
+};
+
+function requestCities(callbacks) {
+	var wundergroundCityBaseURL = "http://autocomplete.wunderground.com/aq?format=JSON&query=";
+	var req = new XMLHttpRequest();
+
+	req.open("GET", wundergroundCityBaseURL + getQuery(), true);
+	req.timeout = 8000;
+	req.ontimeout = function() {
+		callbacks.onError("Timeout");
+	}
+	req.onload = function() {
+		callbacks.onSuccess(req.responseText);
+	};
+	req.send();
+};
+
+/* TODO: Handle error. */
 function showError() {
 	console.log("Error occured while fetching cities. Please try again later.");
-}
+};
 
-function showCityResults() {
-	hideSpinner();
-	codeToNameMap = getCodeAndCitiesFromResponse(req.responseText);
+function showCityResults(response) {
 	resetListOfCities();
+
+	var codeToNameMap = getCodeAndCitiesFromResponse(response);
 	showListOfCities(codeToNameMap);
-}
+};
+
+function getCodeAndCitiesFromResponse(response) {
+	var jsonResponse = JSON.parse(response);
+  var codeToNameMap = {};
+
+	for (var i = 0; i < jsonResponse.RESULTS.length; i++) {
+		if (jsonResponse.RESULTS[i].type == "city") {
+	    cityName = jsonResponse.RESULTS[i].name;
+	    cityCode = jsonResponse.RESULTS[i].l;
+	    codeToNameMap[cityCode] = cityName;
+		}
+  }
+  return codeToNameMap;
+};
 
 function resetListOfCities() {
-	cities = document.getElementById("cities");
+	var cities = document.getElementById("cities");
 	while (cities.firstChild) {
 	    cities.removeChild(cities.firstChild);
 	}
-}
+};
 
 function showListOfCities(codeToNameMap) {
 	for (var key in codeToNameMap) {
@@ -53,7 +110,7 @@ function showListOfCities(codeToNameMap) {
 		cities.appendChild(cityListElement);
 		cities.appendChild(document.createElement("br"));
 	}
-}
+};
 
 function createListElement(code, name) {
 	cityListElement = document.createElement("span");
@@ -63,43 +120,28 @@ function createListElement(code, name) {
 	cityListElement.onmouseover = function() { this.className = "cityListElement highLighted"; }
 	cityListElement.onmouseout = function() { this.className = "cityListElement"; }
 	return cityListElement;
-}
+};
 
 function resetCityInput() {
 	document.getElementById("citiesQueryBox").value = "";
-}
+};
 
 function chooseCity(code, name) {
 	localStorage["chosenCityCode"] = code;
 	localStorage["chosenCityName"] = name;
-	updateChosenCityName();
+	appendSelectedCityOnPage();
 	resetBadge();
-}
+};
 
 function resetBadge() {
-    chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]});
-    chrome.browserAction.setBadgeText({text:""});
-}
-
-function getCodeAndCitiesFromResponse(response) {
-	jsonResponse = JSON.parse(req.responseText);
-    codeToNameMap = {}
-	for (var i = 0; i < jsonResponse.RESULTS.length; i++) {
-		if (jsonResponse.RESULTS[i].type == "city") {
-		    cityName = jsonResponse.RESULTS[i].name;
-		    cityCode = jsonResponse.RESULTS[i].l;
-		    codeToNameMap[cityCode] = cityName;
-		}
-    }
-    return codeToNameMap;
-}
+  chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]});
+  chrome.browserAction.setBadgeText({text:""});
+};
 
 function showSpinner() {
  	document.getElementById("citiesQueryBox").className = "spinner";
-}
+};
 
 function hideSpinner() {
  	document.getElementById("citiesQueryBox").className = "";
-}
-
-document.getElementById("citiesQueryBox").addEventListener('keyup', getCities);
+};
