@@ -1,85 +1,108 @@
-var req = new XMLHttpRequest();
-update();
+doGoogleAnalytics();
+updatePhase();
 
-/* Google Analytics */
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-9963785-2']);
-_gaq.push(['_trackPageview']);
+function doGoogleAnalytics() {
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-9963785-2']);
+  _gaq.push(['_trackPageview']);
 
-(function() {
-  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  ga.src = 'https://ssl.google-analytics.com/ga.js';
-  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-})();
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = 'https://ssl.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+}
 
-function update() {
-  cityCode = localStorage["chosenCityCode"];
-  if (cityCode) {
-    url = "http://api.wunderground.com/api/45151a5acf9543af/astronomy" + cityCode  + ".json";
-    req.open(
-     "GET",
-      url,
-      true);
-    showSpinner(true);
-    req.timeout = 8000;
-    req.ontimeout = showError;
-    req.onload = showPhase;
-    req.send(null);
+function updatePhase() {
+  if (isCitySelected()) {
+    showSpinner();
+    requestPhaseForCity({
+      onError : function(error) {
+        showError(error);
+      },
+      onSuccess : function(response) {
+        hideSpinner();
+        var massagedResponse = getMassagedResponse(response);
+        showPhase(massagedResponse);
+      }
+    });
   } else {
     showSetOptionsDialogue();
-    setOptionsIcon();
+    setOptionsBadge();
   }
 }
 
-function showPhase() {
-  showSpinner(false);
-  if (req.status == 200) {
-    jsonResponse = JSON.parse(req.responseText);
+function requestPhaseForCity(callbacks) {
+  var wundergroundBaseURL = "http://api.wunderground.com/api/45151a5acf9543af/astronomy";
+  var formatParameter = ".json";
+  var getCityDataUrl = wundergroundBaseURL + getSelectedCityCode() + formatParameter;
 
-    if ((jsonResponse.response != null || jsonResponse.response != undefined) && (jsonResponse.response.error != null || jsonResponse.response.error != undefined)) {
-	showError();
+  var req = new XMLHttpRequest();
+  req.open("GET", getCityDataUrl, true);
+  req.timeout = 10000;
+  req.ontimeout = function() {
+    callbacks.onError("Timeout");
+  };
+  req.onload = function() {
+    if (req.status != 200) {
+      callbacks.onError(req.status);
+    } else {
+      var jsonResponse = JSON.parse(req.responseText);
+      if (!jsonResponse.response) {
+        callbacks.onError("No response in JSON");
+      } else if (jsonResponse.response.error) {
+        callbacks.onError("Error in response");
+      } else {
+        callbacks.onSuccess(jsonResponse.moon_phase);
+      }
     }
-
-    var percentIlluminated = jsonResponse.moon_phase.percentIlluminated;
-    var ageOfMoon = jsonResponse.moon_phase.ageOfMoon;
-    var sunrise = jsonResponse.moon_phase.sunrise.hour + ":" + jsonResponse.moon_phase.sunrise.minute;
-    var sunset = jsonResponse.moon_phase.sunset.hour + ":" + jsonResponse.moon_phase.sunset.minute;
-    var imageSource = getImageForMoon(ageOfMoon);
-
-    writeMoonDataToPage(ageOfMoon, percentIlluminated, sunrise, sunset);
-    appendImageToDocument(imageSource);
-    showCityInformation();
-    setPhaseIcon();
-    setIcon(ageOfMoon);
-  } else {
-    showError();
-  }
+  };
+  req.send();
 }
 
-// Error occured during call to API
-function setErrorIcon() {
-  chrome.browserAction.setBadgeBackgroundColor({color:[250, 0, 0, 230]});
-  chrome.browserAction.setBadgeText({text:"!"});
+function isCitySelected() {
+  return (localStorage.getItem("chosenCityCode") != undefined);
+};
+
+function getSelectedCityCode() {
+  return (localStorage.getItem("chosenCityCode"));
+};
+
+function getSelectedCityName() {
+  return (localStorage.getItem("chosenCityName"));
+};
+
+function getMassagedResponse(response) {
+  var percentIlluminated = response.percentIlluminated;
+  var ageOfMoon = response.ageOfMoon;
+  var sunrise = response.sunrise.hour + ":" + response.sunrise.minute;
+  var sunset = response.sunset.hour + ":" + response.sunset.minute;
+
+  return {
+    "percentIlluminated" : percentIlluminated,
+    "ageOfMoon" : ageOfMoon,
+    "sunrise" : sunrise,
+    "sunset" : sunset
+  };
 }
 
-// Successful call, change icon to show the phase
-function setPhaseIcon() {
-  if (req.status == 200) {
-    jsonResponse = JSON.parse(req.responseText);
-    var ageOfMoon = jsonResponse.moon_phase.ageOfMoon;
-    var imageSource = getIconForMoon(ageOfMoon);
+function showPhase(moonData) {
+  appendMoonDataToPopup(moonData.ageOfMoon, moonData.percentIlluminated, moonData.sunrise, moonData.sunset);
+  appendImageToPopup(moonData.ageOfMoon);
+  appendCityInformationToPopup();
+  setPhaseIcon(moonData.ageOfMoon);
+}
 
+function showError() {
+  error = document.getElementById("error");
+  error.style.display = "block";
+  document.getElementById("main").className = "expandedMain";
+}
+
+function setPhaseIcon(ageOfMoon) {
   resetBadge();
-    setIcon(imageSource);
-  } else {
-    showError();
-  }
-}
-
-// Set a notifier that the user needs to set the options
-function setOptionsIcon() {
-  chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]});
-  chrome.browserAction.setBadgeText({text:"?"});
+  var iconPath = getIconForMoon(ageOfMoon);
+  setIcon(iconPath);
 }
 
 function resetBadge() {
@@ -87,12 +110,19 @@ function resetBadge() {
   chrome.browserAction.setBadgeText({text:""});
 }
 
-function setIcon(iconPath) {
-  chrome.browserAction.setIcon({path: iconPath});
+/* Not used */
+function setErrorBadge() {
+  chrome.browserAction.setBadgeBackgroundColor({color:[250, 0, 0, 230]});
+  chrome.browserAction.setBadgeText({text:"!"});
 }
 
-function getIconForMoon(ageOfMoon) {
-  return "../images/browser-icons/" + ageOfMoon + ".png";
+function setOptionsBadge() {
+  chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]});
+  chrome.browserAction.setBadgeText({text:"?"});
+}
+
+function setIcon(iconPath) {
+  chrome.browserAction.setIcon({path: iconPath});
 }
 
 function showSetOptionsDialogue() {
@@ -104,29 +134,12 @@ function showSetOptionsDialogue() {
   document.getElementById("main").className = "expandedMain";
 }
 
-function showCityInformation() {
+function appendCityInformationToPopup() {
   optionsUrl = chrome.extension.getURL("view/options.html");
-  document.getElementById("forCity").innerHTML = "Showing data for " + localStorage["chosenCityName"] + "<a href='" + optionsUrl + "' target='_blank'>" + " (change)</a>";
+  document.getElementById("forCity").innerHTML = "Showing data for " + getSelectedCityName() + "<a href='" + optionsUrl + "' target='_blank'>" + " (change)</a>";
 }
 
-function getImageForMoon(ageOfMoon) {
-  return "../images/moons/" + ageOfMoon + ".png";
-}
-
-function appendImageToDocument(imageSource) {
-  var moonImage = document.createElement("img");
-  moonImage.src = imageSource;
-  moonImage.className = "moonImage";
-  document.getElementById("moonImagePlaceholder").appendChild(moonImage);
-}
-
-function showError() {
-  error = document.getElementById("error");
-  error.style.display = "block";
-  document.getElementById("main").className = "expandedMain";
-}
-
-function writeMoonDataToPage(ageOfMoon, percentIlluminated, sunrise, sunset) {
+function appendMoonDataToPopup(ageOfMoon, percentIlluminated, sunrise, sunset) {
   var percentIlluminatedElement = document.getElementById("percentIlluminated");
   var sunRiseElement = document.getElementById("sunRise");
   var sunSetElement = document.getElementById("sunSet");
@@ -141,6 +154,14 @@ function writeMoonDataToPage(ageOfMoon, percentIlluminated, sunrise, sunset) {
   moonStateElement.innerHTML = phase;
 
   document.getElementById("footer").style.display = "block";
+}
+
+function appendImageToPopup(ageOfMoon) {
+  var imageSource = getImageForMoon(ageOfMoon);
+  var moonImage = document.createElement("img");
+  moonImage.src = imageSource;
+  moonImage.className = "moonImage";
+  document.getElementById("moonImagePlaceholder").appendChild(moonImage);
 }
 
 function getPhase(ageOfMoon, percentIlluminated) {
@@ -165,11 +186,20 @@ function getPhase(ageOfMoon, percentIlluminated) {
   }
 }
 
-function showSpinner(shouldShow) {
+function getIconForMoon(ageOfMoon) {
+  return "../images/browser-icons/" + ageOfMoon + ".png";
+}
+
+function getImageForMoon(ageOfMoon) {
+  return "../images/moons/" + ageOfMoon + ".png";
+}
+
+function showSpinner() {
   var spinnerElement = document.getElementById("spinner");
-  if (shouldShow) {
-    spinnerElement.style.display = "inline";
-  } else {
-    spinnerElement.style.display = "none";
-  }
+  spinnerElement.style.display = "inline";
+}
+
+function hideSpinner() {
+  var spinnerElement = document.getElementById("spinner");
+  spinnerElement.style.display = "none";
 }
