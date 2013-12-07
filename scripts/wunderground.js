@@ -28,8 +28,38 @@ define(["json!../config.json"], function(config) {
         }
       };
       req.send();
+    },
+
+    requestCities : function(query, callbacks) {
+      var wundergroundCityBaseURL = "http://autocomplete.wunderground.com/aq?format=JSON&query=";
+      var req = new XMLHttpRequest();
+
+      req.open("GET", wundergroundCityBaseURL + query, true);
+      req.timeout = 8000;
+      req.ontimeout = function() {
+        callbacks.onError("Timeout");
+      }
+      req.onload = function() {
+        var massagedData = getCodeAndCities(req.responseText);
+        callbacks.onSuccess(massagedData);
+      };
+      req.send();
     }
 
-  }
+  };
+
+  function getCodeAndCities(response) {
+    var jsonResponse = JSON.parse(response);
+    var codeToNameMap = {};
+
+    for (var i = 0; i < jsonResponse.RESULTS.length; i++) {
+      if (jsonResponse.RESULTS[i].type == "city") {
+        var cityName = jsonResponse.RESULTS[i].name;
+        var cityCode = jsonResponse.RESULTS[i].l;
+        codeToNameMap[cityCode] = cityName;
+      }
+    }
+    return codeToNameMap;
+  };
 
 });
