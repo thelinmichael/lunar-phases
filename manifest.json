@@ -1,6 +1,6 @@
 {
   "name": "Lunar phases",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "manifest_version": 2,
   "description": "Displays the current phase of the moon.",
   "options_page": "views/options.html",
