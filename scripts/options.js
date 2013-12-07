@@ -45,7 +45,7 @@ require(['iconHandler', 'wunderground'], function(iconHandler, wunderground) {
 
 	function getCities() {
 		showSpinner();
-		wunderground.requestCities(getQuery(), {
+		wunderground.getCities(getQuery(), {
 			onError : function(error) {
 				hideSpinner();
 			},
@@ -103,12 +103,7 @@ require(['iconHandler', 'wunderground'], function(iconHandler, wunderground) {
 		localStorage["chosenCityCode"] = code;
 		localStorage["chosenCityName"] = name;
 		appendSelectedCityOnPage();
-		resetBadge();
-	};
-
-	function resetBadge() {
-	  chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]});
-	  chrome.browserAction.setBadgeText({text:""});
+		iconHandler.resetBadge();
 	};
 
 	function showSpinner() {

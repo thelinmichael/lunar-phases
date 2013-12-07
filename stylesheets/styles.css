@@ -1,3 +1,7 @@
+html {
+  height: 485px;
+}
+
 body {
   min-width: 536px;
   overflow-x: hidden;
@@ -6,6 +10,7 @@ body {
   font-size: 14px;
   color: white;
   margin: 0px;
+  height: 485px;
 }
 
 #main {

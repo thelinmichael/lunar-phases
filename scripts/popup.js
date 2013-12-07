@@ -12,14 +12,13 @@ require(['iconHandler', 'analytics', 'wunderground'], function(iconHandler, anal
   function updatePhase() {
     if (isCitySelected()) {
       showSpinner();
-      wunderground.requestPhaseForCity(getSelectedCityCode(), {
+      wunderground.getPhaseForCity(getSelectedCityCode(), {
         onError : function(error) {
           showError(error);
         },
         onSuccess : function(response) {
           hideSpinner();
-          var massagedResponse = getMassagedResponse(response);
-          showPhase(massagedResponse);
+          showPhase(response);
         }
       });
     } else {
@@ -39,20 +38,6 @@ require(['iconHandler', 'analytics', 'wunderground'], function(iconHandler, anal
   function getSelectedCityName() {
     return (localStorage.getItem("chosenCityName"));
   };
-
-  function getMassagedResponse(response) {
-    var percentIlluminated = response.percentIlluminated;
-    var ageOfMoon = response.ageOfMoon;
-    var sunrise = response.sunrise.hour + ":" + response.sunrise.minute;
-    var sunset = response.sunset.hour + ":" + response.sunset.minute;
-
-    return {
-      "percentIlluminated" : percentIlluminated,
-      "ageOfMoon" : ageOfMoon,
-      "sunrise" : sunrise,
-      "sunset" : sunset
-    };
-  }
 
   function showPhase(moonData) {
     appendMoonDataToPopup(moonData.ageOfMoon, moonData.percentIlluminated, moonData.sunrise, moonData.sunset);
