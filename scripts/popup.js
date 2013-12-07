@@ -4,7 +4,7 @@ require.config({
   }
 });
 
-require(['iconHandler', 'analytics'], function(iconHandler, analytics) {
+require(['iconHandler', 'analytics', 'wunderground'], function(iconHandler, analytics, wunderground) {
 
   analytics.track();
   updatePhase();
@@ -12,7 +12,7 @@ require(['iconHandler', 'analytics'], function(iconHandler, analytics) {
   function updatePhase() {
     if (isCitySelected()) {
       showSpinner();
-      requestPhaseForCity({
+      wunderground.requestPhaseForCity(getSelectedCityCode(), {
         onError : function(error) {
           showError(error);
         },
@@ -26,34 +26,6 @@ require(['iconHandler', 'analytics'], function(iconHandler, analytics) {
       showSetOptionsDialogue();
       iconHandler.setOptionsBadge();
     }
-  }
-
-  function requestPhaseForCity(callbacks) {
-    var wundergroundAstronomyBaseURL = "http://api.wunderground.com/api/45151a5acf9543af/astronomy";
-    var formatParameter = ".json";
-    var getCityDataUrl = wundergroundAstronomyBaseURL + getSelectedCityCode() + formatParameter;
-
-    var req = new XMLHttpRequest();
-    req.open("GET", getCityDataUrl, true);
-    req.timeout = 10000;
-    req.ontimeout = function() {
-      callbacks.onError("Timeout");
-    };
-    req.onload = function() {
-      if (req.status != 200) {
-        callbacks.onError(req.status);
-      } else {
-        var jsonResponse = JSON.parse(req.responseText);
-        if (!jsonResponse.response) {
-          callbacks.onError("No response in JSON");
-        } else if (jsonResponse.response.error) {
-          callbacks.onError("Error in response");
-        } else {
-          callbacks.onSuccess(jsonResponse.moon_phase);
-        }
-      }
-    };
-    req.send();
   }
 
   function isCitySelected() {
