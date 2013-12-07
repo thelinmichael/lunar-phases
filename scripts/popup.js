@@ -24,7 +24,7 @@ require(['iconHandler', 'analytics'], function(iconHandler, analytics) {
       });
     } else {
       showSetOptionsDialogue();
-      setOptionsBadge();
+      iconHandler.setOptionsBadge();
     }
   }
 
@@ -98,14 +98,14 @@ require(['iconHandler', 'analytics'], function(iconHandler, analytics) {
   function showSetOptionsDialogue() {
     setOptionsDialogue = document.getElementById("setOptionsDialogue");
     setOptionsDialogue.style.display = "block";
-    optionsUrl = chrome.extension.getURL("view/options.html");
+    optionsUrl = chrome.extension.getURL("views/options.html");
     setOptionsDialogue.innerHTML = "You need to select your city in order to determine the time for sunset and sunrise. <br /><br /> <a href='" + optionsUrl + "' target='_blank'>Select city</a>";
 
     document.getElementById("main").className = "expandedMain";
   }
 
   function appendCityInformationToPopup() {
-    optionsUrl = chrome.extension.getURL("view/options.html");
+    optionsUrl = chrome.extension.getURL("views/options.html");
     document.getElementById("forCity").innerHTML = "Showing data for " + getSelectedCityName() + "<a href='" + optionsUrl + "' target='_blank'>" + " (change)</a>";
   }
 
