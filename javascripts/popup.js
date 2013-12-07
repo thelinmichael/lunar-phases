@@ -1,3 +1,9 @@
+require.config({
+  paths : {
+    json : 'vendor/json'
+  }
+});
+
 require(['iconHandler', 'analytics'], function(iconHandler, analytics) {
 
   analytics.track();
@@ -80,39 +86,13 @@ require(['iconHandler', 'analytics'], function(iconHandler, analytics) {
     appendMoonDataToPopup(moonData.ageOfMoon, moonData.percentIlluminated, moonData.sunrise, moonData.sunset);
     appendImageToPopup(moonData.ageOfMoon);
     appendCityInformationToPopup();
-    setPhaseIcon(moonData.ageOfMoon);
+    iconHandler.setPhaseIcon(moonData.ageOfMoon);
   }
 
   function showError() {
     error = document.getElementById("error");
     error.style.display = "block";
     document.getElementById("main").className = "expandedMain";
-  }
-
-  function setPhaseIcon(ageOfMoon) {
-    resetBadge();
-    var iconPath = iconHandler.getIconForMoon(ageOfMoon);
-    setIcon(iconPath);
-  }
-
-  function resetBadge() {
-    chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]});
-    chrome.browserAction.setBadgeText({text:""});
-  }
-
-  /* Not used */
-  function setErrorBadge() {
-    chrome.browserAction.setBadgeBackgroundColor({color:[250, 0, 0, 230]});
-    chrome.browserAction.setBadgeText({text:"!"});
-  }
-
-  function setOptionsBadge() {
-    chrome.browserAction.setBadgeBackgroundColor({color:[190, 190, 190, 230]});
-    chrome.browserAction.setBadgeText({text:"?"});
-  }
-
-  function setIcon(iconPath) {
-    chrome.browserAction.setIcon({path: iconPath});
   }
 
   function showSetOptionsDialogue() {

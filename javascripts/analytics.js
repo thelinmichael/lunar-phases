@@ -1,8 +1,8 @@
-define(function() {
+define(["json!../config.json"], function(config) {
   return {
     track : function() {
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-9963785-2']);
+      _gaq.push(['_setAccount', config.keys.googleAnalytics]);
       _gaq.push(['_trackPageview']);
 
       (function() {

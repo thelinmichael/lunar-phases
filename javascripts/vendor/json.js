@@ -33,7 +33,6 @@ define(['vendor/text'], function(text){
                         buildMap[name] = data;
                         onLoad(data);
                     } else {
-                        console.log(data);
                         onLoad(jsonParse(data));
                     }
                 },
