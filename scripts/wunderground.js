@@ -4,12 +4,13 @@ define(["json!../config.json"], function(config) {
 
     getPhaseForCity : function(cityCode, callbacks) {
       if (_cacheIsValid()) {
+        console.log("Cache valid.");
         callbacks.onSuccess(_getPhaseFromCache());
       } else {
+        console.log("Cache invalid.");
         _makePhaseRequest(cityCode, {
           onSuccess : function(response) {
             _cacheResponse(response);
-            console.log(_getPhaseFromCache());
             callbacks.onSuccess(_getPhaseFromCache());
           },
           onError : function(error) {
